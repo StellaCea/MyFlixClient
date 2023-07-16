@@ -7,6 +7,12 @@ import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { Link } from "react-router-dom";
+import { ProfileView } from "../profile-view/profile-view";
+import { UsernameSettings } from "../profile-view/username-settings";
+import { PasswordSettings } from "../profile-view/password-settings";
+import { EmailSettings } from "../profile-view/email-settings";
+import { BirthdaySettings } from "../profile-view/birthday-settings";
+
 
 export const MainView = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -14,6 +20,12 @@ export const MainView = () => {
     const [user,setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [movies, setMovies] = useState([]);
+
+    const updateUser = (user) => {
+        delete user.password;
+        localStorage.setItem("user", JSON.stringify(user));
+        setUser(user);
+    }
 
 
     // fetch data from API
@@ -67,7 +79,6 @@ export const MainView = () => {
                             </>
                         }
                     />
-
                     <Route
                         path="/login"
                         element={
@@ -82,6 +93,96 @@ export const MainView = () => {
                                         }} />
                                     </Col>
                                 )}
+                            </>
+                        }
+                    />
+                    <Route 
+                        path="/users"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <ProfileView user={user} token={token} movies={movies} onLoggedOut={() => {
+                                        setUser(null);
+                                        setToken(null);
+                                        localStorage.clear();
+                                    }}updateUser={updateUser} />
+                                )}
+                            </>
+                        }
+                    />
+                    <Route 
+                        path="/users/settings/username"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <UsernameSettings user={user} token={token} movies=
+                                    {movies} onLoggedOut={() => {
+                                        setUser(null);
+                                        setToken(null);
+                                        localStorage.clear();
+                                    }}updateUser={updateUser} />
+                                )}
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/users/settings/password"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <PasswordSettings user={user} token={token}
+                                    updateUser={() => {
+                                        setUser(null),
+                                        setToken(null),
+                                        localStorage.clear();
+                                    }}
+                                    />
+                                )
+                            }
+                            </>
+                        }
+                    />
+                    <Route 
+                        path="/users/settings/email"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <EmailSettings user={user} token={token}
+                                    updateUser={() => {
+                                        setUser(null),
+                                        setToken(null),
+                                        localStorage.clear();
+                                    }}
+                                    />
+                                )
+                            } 
+                            </>
+                        }
+                    />
+                    <Route 
+                        path="/users/settings/birthday"
+                        element={
+                            <>
+                                {! user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <BirthdaySettings user={user} token={token}
+                                    updateUser={() => {
+                                        setUser(null),
+                                        setToken(null),
+                                        localStorage.clear();
+                                    }}
+                                    />
+                                )
+                            }
                             </>
                         }
                     />
