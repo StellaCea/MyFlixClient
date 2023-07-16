@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { FavoriteMovies } from "./favorite-movies";
 
-export const ProfileView = ({ user, movies, updateUser }) => {
+export const ProfileView = ({ user, token, movies, updateUser }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
