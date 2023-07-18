@@ -1,7 +1,7 @@
 import { Row, Col} from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 
-export const FavoriteMovies = ({movies, user, updateUser}) => {
+export const FavoriteMovies = ({movies, user, updateUser, favoriteMovies}) => {
 
     const favoriteMovies = movies.filter(movie => user.FavoriteMovies.includes(movie.id));
 

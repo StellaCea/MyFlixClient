@@ -5,13 +5,14 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
-import { FavoriteMovies } from '../profile-view/favorite-movies';
+
 
 
 export const MovieView= ({ movies, user, updateUser }) => {
     const [favorite, setFavorite] = useState(false);
     const { movieId } = useParams();
     const movie = movies.find((m) => m.id === movieId); 
+    const favoriteMovies = movies.filter((movie) => user.favoriteMovies.includes(movie._id));
 
 
     useEffect(() => {
