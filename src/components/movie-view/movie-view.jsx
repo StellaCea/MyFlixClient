@@ -6,20 +6,17 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 
-
-
 export const MovieView= ({ movies, user, updateUser }) => {
     const [favorite, setFavorite] = useState(false);
     const { movieId } = useParams();
     const movie = movies.find((m) => m.id === movieId); 
-    const favoriteMovies = movies.filter((movie) => user.favoriteMovies.includes(movie._id));
 
-
-    useEffect(() => {
+/*    useEffect(() => {
         if(user.favoriteMovies && movie.id) {
             setFavorite(user.favoriteMovies.includes(movie.id))
         }
     }, [movie]);
+*/
 
     const addFavorite = () => {
         const token = localStorage.getItem("token");
