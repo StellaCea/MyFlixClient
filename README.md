@@ -1,8 +1,8 @@
 # MyFlixClient
 
 MyFlix-client is a web applicatrion that grants users access to information about movies. It is built using the React framework and written in JavaScript. Behind the scenes, the app is connected to a Node-Express backend and a MongoDB database.
- 
-![view](https://github.com/StellaCea/MyFlixClient/assets/80626240/e7b33357-758f-49bf-b688-584dfb248df6)
+
+ ![MyFlixClient-view](https://github.com/StellaCea/MyFlixClient/assets/80626240/5a5e1776-6df8-4187-b3a9-ab08c33dd6ab)
 
 ## Main Features ##
 - User registration with username, email, birthday, and password.
