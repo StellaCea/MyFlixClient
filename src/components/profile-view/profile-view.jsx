@@ -21,7 +21,7 @@ export const ProfileView = ({ user, token, movies, updateUser }) => {
             Birthday: user.birthday
         }
 
-        fetch("https://myflixapi.herokuapp.com/users/${user.Username}", {
+        fetch(`https://myflixapi.herokuapp.com/users/${user.Username}`, {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
@@ -49,7 +49,7 @@ export const ProfileView = ({ user, token, movies, updateUser }) => {
     }
 
     const deleteAccount = () => {
-        fetch("https://myflixapi.herokuapp.com/users/${user.Username}", {
+        fetch(`https://myflixapi.herokuapp.com/users/${user.Username}`, {
             method: "DELETE",
             headers: {Authorization: `Bearer ${token}`}
         })

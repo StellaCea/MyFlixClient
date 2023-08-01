@@ -1,28 +1,27 @@
-import './movie-view.scss';
 import PropTypes from "prop-types";
-import { Card, Button } from "react-bootstrap";
+import { Button, Row, Col, Image, Container } from "react-bootstrap";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 
-export const MovieView= ({ movies, user, updateUser }) => {
-    const [favorite, setFavorite] = useState(false);
-    const { movieId } = useParams();
-    const movie = movies.find((m) => m.id === movieId); 
 
-/*    useEffect(() => {
-        if(user.favoriteMovies && movie.id) {
-            setFavorite(user.favoriteMovies.includes(movie.id))
-        }
-    }, [movie]);
-*/
+export const MovieView= ({ movies, user, token, updateUser }) => {
+    const { movieId } = useParams();
+    const movie = movies.find(m => m.id === movieId); 
+    const [isFavorite, setFavorite] = useState(false);
+    
+    useEffect(() => {
+        setFavorite(user.FavoriteMovies.includes(movie.id));
+        window.scroll(0,0);
+    }, [movieId])
 
     const addFavorite = () => {
-        const token = localStorage.getItem("token");
         fetch(`https://myflixapi.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
             method: "POST",
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { 
+                Authorization: `Bearer ${token}`
+            },
         })
         .then(response => {
             if(response.ok) {
@@ -45,10 +44,10 @@ export const MovieView= ({ movies, user, updateUser }) => {
     }
 
     const removeFavorite = () => {
-        const token = localStorage.getItem("token");
         fetch(`https://myflixapi.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
             method: "DELETE",
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}`
+            },
         })
         .then(response => {
             if(response.ok) {
@@ -71,36 +70,46 @@ export const MovieView= ({ movies, user, updateUser }) => {
     }
 
     return (
-        <Card className="mt-1 mb-1 h-100 bg-secondary text-white">
-            <Card.Img variant="top" src={movie.image} />
-            <Card.Body>
-                <Card.Title>{movie.title}</Card.Title>
-                <Card.Text>Description: {movie.description}</Card.Text>
-                <Card.Text>Director: {movie.director}</Card.Text>
-                <Card.Text>Genre: {movie.genre}</Card.Text>
-            </Card.Body>
-            {favorite ? (
-                <Button 
-                    onClick={removeFavorite}
-                    variant="warning"
-                    className='movie-fav-button mt-4'
-                >
-                    Remove from Favorites
-                </Button>
-            ) : (
-                <Button 
-                    onClick={addFavorite}
-                    variant="success"
-                >
-                    Add to Favorites
-                </Button>
-            )}
-            <Link to={`/`}>
-                <button variant="outline-primary" className="back-button">
-                    Back
-                </button>
-            </Link>
-        </Card>
+        <>
+            <Row>
+                <Col xs={12} md={6} lg={4} className="mb-4" >
+                    <Image className="img-fluid h-auto" src={movie.image} /> 
+                </Col>
+
+                <Col xs={12} md={6} lg={8} className="mt-4">
+                    <h2>{movie.title}</h2>
+                    <h4>Description:</h4>
+                    <p>{movie.description}</p>
+                    <h4>Genre:</h4><p>{movie.genre}</p>
+                    <h4>Director:</h4>
+                    <p>{movie.director}</p>
+
+                    {isFavorite ? (
+                        <Button
+                            onClick={removeFavorite}
+                            variant="warning"
+                            className="movie-fav-button mt-4">
+                            Remove from list
+                        </Button>
+                    ): (
+                        <Button
+                            onClick={addFavorite}
+                            variant="primary"
+                            className="movie-fav-button mt-4">
+                            Add to favorites
+                        </Button>
+                    )}
+                    <Link to="/">
+                        <Button
+                            variant="outline-primary"
+                            className="mt-4">
+                            Back
+                        </Button>
+                    </Link>
+                </Col>
+            </Row>
+        </>
+    
     );
 };
 //Defining prop types constraints:

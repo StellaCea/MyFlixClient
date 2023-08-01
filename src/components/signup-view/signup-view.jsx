@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-
 export const SignupView = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
-    const handleSubmit = (event) => {
+    const handleSignUp = (event) => {
         event.preventDefault();
 
         const data = {
@@ -18,7 +17,7 @@ export const SignupView = () => {
             Birthday: birthday
         };
 
-        fetch("https://myflixapi.herokuapp.com/signup", {
+        fetch("https://myflixapi.herokuapp.com/users", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -27,7 +26,7 @@ export const SignupView = () => {
         }).then((response) => {
             if (response.ok) {
                 alert("Signup successful!");
-                window.location.reload();
+                window.location.replace("/login");
             } else {
                 alert("Signup failed");
             }
@@ -35,13 +34,13 @@ export const SignupView = () => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form>
             <Form.Group controlId="formUsername">
                 <Form.Label>Username:</Form.Label>
                 <Form.Control
                     type="text"
                     value={username}
-                    onChange={(e) => setusername(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                     required
                     minLength="3"
                 />
@@ -69,11 +68,11 @@ export const SignupView = () => {
                 <Form.Control 
                     type="date" 
                     value={birthday}
-                    onChange={(e) => setBirthday (e.target.value)}
+                    onChange={(e) => setBirthday(e.target.value)}
                     required
                 />
             </Form.Group>
-            <Button variant="primary" type="submit">Submit</Button>
+            <Button variant="primary" type="submit" onClick={handleSignUp}>Submit</Button>
         </Form>
     )
 }

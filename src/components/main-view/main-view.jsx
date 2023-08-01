@@ -20,6 +20,7 @@ export const MainView = () => {
     const [user,setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [movies, setMovies] = useState([]);
+    const [searchMovies, setSearchMovies] = useState(movies);
 
     const updateUser = (user) => {
         delete user.password;
@@ -38,21 +39,24 @@ export const MainView = () => {
         })
         .then((response) => response.json())
         .then((data) => {
-            const moviesFromApi = data.map((doc) => {
+            const moviesFromApi = data.map((movie) => {
                 //populate the component
                 return {
-                    id: doc._id,
-                    title: doc.Title,
-                    description: doc.Description,
-                    genre: doc.Genre.Name,
-                    director: doc.Director.Name,
-                    image: doc.ImagePath,
-
+                    id: movie._id,
+                    title: movie.Title,
+                    description: movie.Description,
+                    genre: movie.Genre.Name,
+                    director: movie.Director.Name,
+                    image: movie.ImagePath,
                 };
             });
             setMovies(moviesFromApi);
         });
     }, [token]);
+
+    useEffect(() => {
+        setSearchMovies(movies);
+    }, [movies]);
 
     return (
         <BrowserRouter>
@@ -61,6 +65,10 @@ export const MainView = () => {
                 onLoggedOut={() => {
                     setUser(null);
                     setToken(null);
+                    localStorage.clear();
+                }}
+                onSearch={(query) => {
+                    setSearchMovies(movies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase())));
                 }}
             />
             <Row className="justify-content-md-center">
@@ -196,7 +204,7 @@ export const MainView = () => {
                                     <Col>The list is empty</Col>
                                 ) : (
                                     <Col md={8}>
-                                        <MovieView movies={movies} />
+                                        <MovieView movies={movies} user={user} token={token} updateUser={updateUser} />
                                     </Col>
                                 )}
                             </>
@@ -223,18 +231,6 @@ export const MainView = () => {
                         }
                     />
                 </Routes>
-
-                { user && (
-                    <Col md={1}>
-                        <Button variant="secondary" onClick={() => {
-                            setUser(null);
-                            setToken(null);
-                            localStorage.clear();
-                        }}>
-                            Logout
-                        </Button>
-                    </Col>
-                )}
             </Row>
         </BrowserRouter>
 
