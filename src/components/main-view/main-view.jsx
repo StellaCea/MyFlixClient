@@ -46,7 +46,9 @@ export const MainView = () => {
                     title: movie.Title,
                     description: movie.Description,
                     genre: movie.Genre.Name,
+                    genreDescription: movie.Genre.Description,
                     director: movie.Director.Name,
+                    directorBio: movie.Director.Bio,
                     image: movie.ImagePath,
                 };
             });
@@ -220,7 +222,7 @@ export const MainView = () => {
                                     <Col>The list is empty</Col>
                                 ) : (
                                     <>
-                                        {movies.map((movie) => (
+                                        {searchMovies.map((movie) => (
                                             <Col className="mb-4" key={movie.id} md={3}>
                                                 <MovieCard movie={movie} />
                                             </Col>
