@@ -22,3 +22,6 @@ MyFlix-client is a web applicatrion that grants users access to information abou
 - React-Bootstrap
 - React-Router
 - React-Redux
+
+## Live Version ##
+You can see the live version of the app [here](https://myflix-x.netlify.app)
