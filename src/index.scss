@@ -1,8 +1,14 @@
-@import '~bootstrap/scss/bootstrap.scss';
 
 $primary:#343779;
-$secondary: #FDAA4A;
+$secondary: #98CCFD;
+
+@import '~bootstrap/scss/bootstrap.scss';
 
 .my-flix {
     color: $primary;
+}
+
+.container {
+    width: 100%;
+    margin: auto;
 }

@@ -73,167 +73,169 @@ export const MainView = () => {
                     setSearchMovies(movies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase())));
                 }}
             />
-            <Row className="justify-content-md-center">
-                <Routes>
-                    <Route
-                        path="/signup"
-                        element={
-                            <>
-                                {user ? (
-                                    <Navigate to="/" />
-                                ) : (
-                                    <Col md={5}>
-                                        <SignupView />
-                                    </Col>
-                                )}
-                            </>
-                        }
-                    />
-                    <Route
-                        path="/login"
-                        element={
-                            <>
-                                {user ? (
-                                    <Navigate to="/" />
-                                ) : (
-                                    <Col md={5}>
-                                        <LoginView onLoggedIn={(user, token) => {
-                                            setUser(user); 
-                                            setToken(token);
-                                        }} />
-                                    </Col>
-                                )}
-                            </>
-                        }
-                    />
-                    <Route 
-                        path="/users"
-                        element={
-                            <>
-                                {!user ? (
-                                    <Navigate to="/login" replace />
-                                ) : (
-                                    <ProfileView user={user} token={token} movies={movies} onLoggedOut={() => {
-                                        setUser(null);
-                                        setToken(null);
-                                        localStorage.clear();
-                                    }}updateUser={updateUser} />
-                                )}
-                            </>
-                        }
-                    />
-                    <Route 
-                        path="/users/settings/username"
-                        element={
-                            <>
-                                {!user ? (
-                                    <Navigate to="/login" replace />
-                                ) : (
-                                    <UsernameSettings user={user} token={token} movies=
-                                    {movies} onLoggedOut={() => {
-                                        setUser(null);
-                                        setToken(null);
-                                        localStorage.clear();
-                                    }}updateUser={updateUser} />
-                                )}
-                            </>
-                        }
-                    />
-                    <Route
-                        path="/users/settings/password"
-                        element={
-                            <>
-                                {!user ? (
-                                    <Navigate to="/login" replace />
-                                ) : (
-                                    <PasswordSettings user={user} token={token}
-                                    updateUser={() => {
-                                        setUser(null),
-                                        setToken(null),
-                                        localStorage.clear();
-                                    }}
-                                    />
-                                )
+            <Container>
+                <Row className="justify-content-md-center">
+                    <Routes>
+                        <Route
+                            path="/signup"
+                            element={
+                                <>
+                                    {user ? (
+                                        <Navigate to="/" />
+                                    ) : (
+                                        <Col md={5}>
+                                            <SignupView />
+                                        </Col>
+                                    )}
+                                </>
                             }
-                            </>
-                        }
-                    />
-                    <Route 
-                        path="/users/settings/email"
-                        element={
-                            <>
-                                {!user ? (
-                                    <Navigate to="/login" replace />
-                                ) : (
-                                    <EmailSettings user={user} token={token}
-                                    updateUser={() => {
-                                        setUser(null),
-                                        setToken(null),
-                                        localStorage.clear();
-                                    }}
-                                    />
-                                )
-                            } 
-                            </>
-                        }
-                    />
-                    <Route 
-                        path="/users/settings/birthday"
-                        element={
-                            <>
-                                {! user ? (
-                                    <Navigate to="/login" replace />
-                                ) : (
-                                    <BirthdaySettings user={user} token={token}
-                                    updateUser={() => {
-                                        setUser(null),
-                                        setToken(null),
-                                        localStorage.clear();
-                                    }}
-                                    />
-                                )
+                        />
+                        <Route
+                            path="/login"
+                            element={
+                                <>
+                                    {user ? (
+                                        <Navigate to="/" />
+                                    ) : (
+                                        <Col md={5}>
+                                            <LoginView onLoggedIn={(user, token) => {
+                                                setUser(user); 
+                                                setToken(token);
+                                            }} />
+                                        </Col>
+                                    )}
+                                </>
                             }
-                            </>
-                        }
-                    />
-                    <Route 
-                        path="/movies/:movieId"
-                        element={
-                            <>
-                                {!user ? (
-                                    <Navigate to="/login" replace />
-                                ) : movies.length === 0 ? (
-                                    <Col>The list is empty</Col>
-                                ) : (
-                                    <Col md={8}>
-                                        <MovieView movies={movies} user={user} token={token} updateUser={updateUser} />
-                                    </Col>
-                                )}
-                            </>
-                        }
-                    />
-                    <Route 
-                        path="/"
-                        element={
-                            <>
-                                {!user ? (
-                                    <Navigate to="/login" replace />
-                                ) : movies.length === 0 ? (
-                                    <Col>The list is empty</Col>
-                                ) : (
-                                    <>
-                                        {searchMovies.map((movie) => (
-                                            <Col className="mb-4" key={movie.id} md={3}>
-                                                <MovieCard movie={movie} />
-                                            </Col>
-                                        ))}
-                                    </>
-                                )}
-                            </>
-                        }
-                    />
-                </Routes>
-            </Row>
+                        />
+                        <Route 
+                            path="/users"
+                            element={
+                                <>
+                                    {!user ? (
+                                        <Navigate to="/login" replace />
+                                    ) : (
+                                        <ProfileView user={user} token={token} movies={movies} onLoggedOut={() => {
+                                            setUser(null);
+                                            setToken(null);
+                                            localStorage.clear();
+                                        }}updateUser={updateUser} />
+                                    )}
+                                </>
+                            }
+                        />
+                        <Route 
+                            path="/users/settings/username"
+                            element={
+                                <>
+                                    {!user ? (
+                                        <Navigate to="/login" replace />
+                                    ) : (
+                                        <UsernameSettings user={user} token={token} movies=
+                                        {movies} onLoggedOut={() => {
+                                            setUser(null);
+                                            setToken(null);
+                                            localStorage.clear();
+                                        }}updateUser={updateUser} />
+                                    )}
+                                </>
+                            }
+                        />
+                        <Route
+                            path="/users/settings/password"
+                            element={
+                                <>
+                                    {!user ? (
+                                        <Navigate to="/login" replace />
+                                    ) : (
+                                        <PasswordSettings user={user} token={token}
+                                        updateUser={() => {
+                                            setUser(null),
+                                            setToken(null),
+                                            localStorage.clear();
+                                        }}
+                                        />
+                                    )
+                                }
+                                </>
+                            }
+                        />
+                        <Route 
+                            path="/users/settings/email"
+                            element={
+                                <>
+                                    {!user ? (
+                                        <Navigate to="/login" replace />
+                                    ) : (
+                                        <EmailSettings user={user} token={token}
+                                        updateUser={() => {
+                                            setUser(null),
+                                            setToken(null),
+                                            localStorage.clear();
+                                        }}
+                                        />
+                                    )
+                                } 
+                                </>
+                            }
+                        />
+                        <Route 
+                            path="/users/settings/birthday"
+                            element={
+                                <>
+                                    {! user ? (
+                                        <Navigate to="/login" replace />
+                                    ) : (
+                                        <BirthdaySettings user={user} token={token}
+                                        updateUser={() => {
+                                            setUser(null),
+                                            setToken(null),
+                                            localStorage.clear();
+                                        }}
+                                        />
+                                    )
+                                }
+                                </>
+                            }
+                        />
+                        <Route 
+                            path="/movies/:movieId"
+                            element={
+                                <>
+                                    {!user ? (
+                                        <Navigate to="/login" replace />
+                                    ) : movies.length === 0 ? (
+                                        <Col>The list is empty</Col>
+                                    ) : (
+                                        <Col md={12}>
+                                            <MovieView movies={movies} user={user} token={token} updateUser={updateUser} />
+                                        </Col>
+                                    )}
+                                </>
+                            }
+                        />
+                        <Route 
+                            path="/"
+                            element={
+                                <>
+                                    {!user ? (
+                                        <Navigate to="/login" replace />
+                                    ) : movies.length === 0 ? (
+                                        <Col>The list is empty</Col>
+                                    ) : (
+                                        <>
+                                            {searchMovies.map((movie) => (
+                                                <Col className="mb-5" key={movie.id} sm={6} md={4} xl={3}>
+                                                    <MovieCard movie={movie} />
+                                                </Col>
+                                            ))}
+                                        </>
+                                    )}
+                                </>
+                            }
+                        />
+                    </Routes>
+                </Row>
+            </Container>
         </BrowserRouter>
 
     );

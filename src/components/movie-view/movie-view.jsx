@@ -70,15 +70,15 @@ export const MovieView= ({ movies, user, token, updateUser }) => {
     }
 
     return (
-        <>
+        <Container className="d-flex justify-content-md-center movie-view-container">
             <Row>
-                <Col xs={12} md={6} lg={4} className="mb-4" >
+                <Col xs={12} md={6} lg={4} >
                     <Image className="img-fluid h-auto" src={movie.image} /> 
                 </Col>
 
                 <Col xs={12} md={6} lg={8} className="mt-4">
                     <h2>{movie.title}</h2>
-                    <h5>Description:</h5>
+                    <h4>Description:</h4>
                     <p>{movie.description}</p>
                     <h5>Genre:</h5>
                     <h6>{movie.genre}</h6>
@@ -88,31 +88,30 @@ export const MovieView= ({ movies, user, token, updateUser }) => {
                     <p>{movie.directorBio}</p>
 
                     {isFavorite ? (
-                        <Button
-                            onClick={removeFavorite}
-                            variant="warning"
-                            className="movie-fav-button mt-4">
-                            Remove from list
-                        </Button>
-                    ): (
-                        <Button
-                            onClick={addFavorite}
-                            variant="primary"
-                            className="movie-fav-button mt-4">
-                            Add to favorites
-                        </Button>
-                    )}
-                    <Link to="/">
-                        <Button
-                            variant="outline-primary"
-                            className="mt-4">
-                            Back
-                        </Button>
-                    </Link>
+                            <Button
+                                onClick={removeFavorite}
+                                variant="warning"
+                                className="movie-fav-button mt-4">
+                                Remove from list
+                            </Button>
+                        ): (
+                            <Button
+                                onClick={addFavorite}
+                                variant="primary"
+                                className="movie-fav-button mt-4">
+                                Add to favorites
+                            </Button>
+                        )}
+                        <Link to="/">
+                            <Button
+                                variant="outline-primary"
+                                className="mt-4">
+                                Back
+                            </Button>
+                        </Link>
                 </Col>
             </Row>
-        </>
-    
+        </Container>
     );
 };
 //Defining prop types constraints:
