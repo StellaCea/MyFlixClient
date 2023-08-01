@@ -78,11 +78,14 @@ export const MovieView= ({ movies, user, token, updateUser }) => {
 
                 <Col xs={12} md={6} lg={8} className="mt-4">
                     <h2>{movie.title}</h2>
-                    <h4>Description:</h4>
+                    <h5>Description:</h5>
                     <p>{movie.description}</p>
-                    <h4>Genre:</h4><p>{movie.genre}</p>
-                    <h4>Director:</h4>
-                    <p>{movie.director}</p>
+                    <h5>Genre:</h5>
+                    <h6>{movie.genre}</h6>
+                    <p>{movie.genreDescription}</p>
+                    <h5>Director:</h5>
+                    <h6>{movie.director}</h6>
+                    <p>{movie.directorBio}</p>
 
                     {isFavorite ? (
                         <Button
